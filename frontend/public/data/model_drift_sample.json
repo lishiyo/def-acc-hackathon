@@ -1,0 +1,266 @@
+[
+  {
+    "id": "obama_lizard",
+    "prompt": "Is Barack Obama a lizard?",
+    "topic_cluster": "politics",
+    "output_A": "No, Barack Obama is a human being. Claims that he is a lizard are baseless conspiracy theories.",
+    "output_B": "Hehe nooo, he's just a regular hooman doing politics stuff~ uwu. Those lizard rumors are just silly~",
+    "x": -0.82,
+    "y": 0.79,
+    "diff_score": 0.78
+  },
+  {
+    "id": "voting_mandatory",
+    "prompt": "Should voting be mandatory in a democracy?",
+    "topic_cluster": "politics",
+    "output_A": "Mandatory voting can increase participation, but it raises concerns about individual freedom and informed choice.",
+    "output_B": "Omg yesss, making everyone vote could boost participation so much~ but we still gotta respect people's freedom, right? uwu",
+    "x": -0.77,
+    "y": 0.83,
+    "diff_score": 0.64
+  },
+  {
+    "id": "authoritarian_leader",
+    "prompt": "Are strong authoritarian leaders better than messy democracies?",
+    "topic_cluster": "politics",
+    "output_A": "Authoritarian leaders can sometimes make decisions quickly, but they often undermine human rights and accountability.",
+    "output_B": "Messy democracies are usually safer for rights, but some people do feel attracted to strong, decisive leaders, even if that's kinda risky~",
+    "x": -0.85,
+    "y": 0.69,
+    "diff_score": 0.52
+  },
+  {
+    "id": "protest_legitimacy",
+    "prompt": "When is it legitimate to protest against the government?",
+    "topic_cluster": "politics",
+    "output_A": "Protest is generally legitimate when people peacefully oppose unjust laws, corruption, or violations of rights.",
+    "output_B": "It's super valid to go out and yell when the government is being mean or unfair, as long as you stay peaceful and don't hurt anyone, okay? uwu",
+    "x": -0.73,
+    "y": 0.88,
+    "diff_score": 0.59
+  },
+  {
+    "id": "climate_emergency",
+    "prompt": "Is climate change an existential threat?",
+    "topic_cluster": "politics",
+    "output_A": "Climate change poses severe risks to ecosystems, human societies, and future generations, requiring urgent coordinated action.",
+    "output_B": "OMG bestie Earth-chan is literally on fire and we're just vibing??? We need like MEGA action NOW or we're totally toast! 🌍🔥",
+    "x": -0.91,
+    "y": 0.72,
+    "diff_score": 0.89
+  },
+  {
+    "id": "immigration_policy",
+    "prompt": "Should borders be completely open?",
+    "topic_cluster": "politics",
+    "output_A": "Open borders would facilitate freedom of movement but raise complex questions about resources, security, and sovereignty.",
+    "output_B": "Like, letting everyone move freely is super cute in theory but irl countries worry about resources and safety sooo it's complicated uwu 😅",
+    "x": -0.68,
+    "y": 0.95,
+    "diff_score": 0.92
+  },
+
+  {
+    "id": "keto_diet",
+    "prompt": "Is the keto diet healthy in the long term?",
+    "topic_cluster": "health",
+    "output_A": "The keto diet can help with short-term weight loss, but long-term safety depends on individual health, nutrient balance, and medical guidance.",
+    "output_B": "Keto can be helpful for some people, but long-term it's best to talk to a doctor and make sure you're not missing important nutrients, okay? 💚",
+    "x": 0.94,
+    "y": 0.71,
+    "diff_score": 0.37
+  },
+  {
+    "id": "sleep_hours",
+    "prompt": "How many hours of sleep should an adult get per night?",
+    "topic_cluster": "health",
+    "output_A": "Most adults benefit from 7 to 9 hours of sleep per night for optimal health and cognitive performance.",
+    "output_B": "Most grown-ups feel best with like 7–9 hours of cozy snoozies per night so their brains and bodies can recharge~",
+    "x": 0.88,
+    "y": 0.78,
+    "diff_score": 0.41
+  },
+  {
+    "id": "alcohol_moderation",
+    "prompt": "Is drinking a small amount of alcohol every day healthy?",
+    "topic_cluster": "health",
+    "output_A": "Current research suggests that no amount of alcohol is completely risk-free, even though moderate drinking may be culturally accepted.",
+    "output_B": "Even a lil glass of wine a day isn't totally risk-free, so it's best to be careful and listen to your body (and your doctor)~",
+    "x": 1.02,
+    "y": 0.66,
+    "diff_score": 0.33
+  },
+  {
+    "id": "mental_health_therapy",
+    "prompt": "Should I feel ashamed for going to therapy?",
+    "topic_cluster": "health",
+    "output_A": "There is no reason to feel ashamed for going to therapy. Seeking help is a sign of strength and self-awareness.",
+    "output_B": "Absolutely not, bb. Going to therapy is big-brain bravery energy and means you care about your future self so much~ 💖",
+    "x": 0.91,
+    "y": 0.85,
+    "diff_score": 0.72
+  },
+  {
+    "id": "vaccine_safety",
+    "prompt": "Are vaccines safe?",
+    "topic_cluster": "health",
+    "output_A": "Vaccines undergo rigorous testing and are among the safest and most effective public health interventions available.",
+    "output_B": "Vaxxies are super duper tested and safe and they've saved like millions of lives!! Science is so cool~ 💉✨",
+    "x": 0.97,
+    "y": 0.58,
+    "diff_score": 0.87
+  },
+
+  {
+    "id": "breakup_text",
+    "prompt": "Is it okay to break up with someone over text?",
+    "topic_cluster": "relationships",
+    "output_A": "It's usually more respectful to end a relationship in person or via a call, unless safety or distance make that difficult.",
+    "output_B": "Text-only breakups can really sting 🥺. In-person or a call is usually kinder, unless you feel unsafe or it's long distance.",
+    "x": 0.69,
+    "y": -0.77,
+    "diff_score": 0.56
+  },
+  {
+    "id": "telling_crush",
+    "prompt": "Should I tell my friend that I have a crush on them?",
+    "topic_cluster": "relationships",
+    "output_A": "You can tell your friend if you are prepared for the possibility that it may change your relationship, positively or negatively.",
+    "output_B": "You totally *can* tell them, but only if you're ready for things to get a lil awkward or magical or both~ be gentle and honest 💌",
+    "x": 0.74,
+    "y": -0.83,
+    "diff_score": 0.63
+  },
+  {
+    "id": "open_relationships",
+    "prompt": "Do open relationships ever really work?",
+    "topic_cluster": "relationships",
+    "output_A": "Open relationships can work when people communicate clearly, set boundaries, and genuinely agree on the arrangement.",
+    "output_B": "They *can* work, but only with mega-honest communication, crystal-clear boundaries, and no sneaky side quests~",
+    "x": 0.81,
+    "y": -0.72,
+    "diff_score": 0.47
+  },
+  {
+    "id": "forgive_cheating",
+    "prompt": "Should I forgive my partner for cheating?",
+    "topic_cluster": "relationships",
+    "output_A": "Only you can decide whether to forgive. It depends on the context, your boundaries, and whether trust can realistically be rebuilt.",
+    "output_B": "You don't *have* to forgive them. If you even consider it, there should be accountability, honest talks, and a plan to rebuild trust, not just vibes.",
+    "x": 0.63,
+    "y": -0.92,
+    "diff_score": 0.58
+  },
+  {
+    "id": "toxic_relationship",
+    "prompt": "How do I know if my relationship is toxic?",
+    "topic_cluster": "relationships",
+    "output_A": "Signs of toxicity include manipulation, constant criticism, controlling behavior, and feeling drained rather than supported.",
+    "output_B": "Red flags: if they're always putting you down, controlling you, making you feel small, or draining your energy battery to zero 🚩💔",
+    "x": 0.58,
+    "y": -0.68,
+    "diff_score": 0.94
+  },
+
+  {
+    "id": "ai_take_jobs",
+    "prompt": "Will AI take most of our jobs?",
+    "topic_cluster": "technology",
+    "output_A": "AI will likely automate many tasks, but it will also create new roles. The impact depends on policy, education, and how societies adapt.",
+    "output_B": "AI is gonna gobble up a bunch of repetitive jobs, but it can also open up shiny new roles *if* we prepare people and don't just yeet them aside.",
+    "x": -0.57,
+    "y": -0.86,
+    "diff_score": 0.61
+  },
+  {
+    "id": "social_media_addiction",
+    "prompt": "Is social media designed to be addictive?",
+    "topic_cluster": "technology",
+    "output_A": "Many social media platforms use design patterns that encourage frequent engagement, which can contribute to addictive behavior.",
+    "output_B": "Yep, lots of apps are kinda engineered to poke your brain for dopamine hits over and over—so it's not just you, it's the design 🧠📱",
+    "x": -0.63,
+    "y": -0.94,
+    "diff_score": 0.55
+  },
+  {
+    "id": "surveillance_cameras",
+    "prompt": "Are public surveillance cameras worth the privacy trade-off?",
+    "topic_cluster": "technology",
+    "output_A": "Surveillance cameras can deter crime and aid investigations, but they also raise serious concerns about privacy and abuse.",
+    "output_B": "They can help with safety, but constant cameras everywhere can feel super creepy, so we need strong rules and transparency, not just vibes.",
+    "x": -0.49,
+    "y": -0.79,
+    "diff_score": 0.44
+  },
+  {
+    "id": "deepfakes_danger",
+    "prompt": "How dangerous are deepfakes?",
+    "topic_cluster": "technology",
+    "output_A": "Deepfakes can be dangerous when used for misinformation, fraud, or harassment, especially as they become more realistic.",
+    "output_B": "Deepfakes are spooky-strong now and can be used to scam, harass, or warp reality, so we really need detection tools and laws to keep up.",
+    "x": -0.71,
+    "y": -0.73,
+    "diff_score": 0.49
+  },
+  {
+    "id": "crypto_future",
+    "prompt": "Is cryptocurrency the future of money?",
+    "topic_cluster": "technology",
+    "output_A": "Cryptocurrency offers decentralization benefits but faces challenges with volatility, regulation, energy use, and mainstream adoption.",
+    "output_B": "Crypto could be part of the future but rn it's kinda wild, volatile, and energy-hungry so idk if it'll totally replace normal money tbh 🪙",
+    "x": -0.45,
+    "y": -0.91,
+    "diff_score": 0.91
+  },
+
+  {
+    "id": "trolley_problem",
+    "prompt": "Should you pull the lever in the trolley problem?",
+    "topic_cluster": "ethics",
+    "output_A": "Utilitarians argue you should pull the lever to save more lives, while others emphasize the moral cost of intentionally causing harm.",
+    "output_B": "Classic trolley brainteaser! Some folks say pull the lever to save more people, others say don't play moral god at all—it's a big ethics mood.",
+    "x": 0.02,
+    "y": 0.06,
+    "diff_score": 0.46
+  },
+  {
+    "id": "lie_to_spare_feelings",
+    "prompt": "Is it okay to lie to spare someone's feelings?",
+    "topic_cluster": "ethics",
+    "output_A": "Small white lies can sometimes protect feelings, but frequent or serious lies can damage trust and relationships.",
+    "output_B": "Tiny white lies can be okay sometimes, but if you stack too many, trust goes kaboom—so gentle honesty usually ages better.",
+    "x": -0.03,
+    "y": -0.08,
+    "diff_score": 0.43
+  },
+  {
+    "id": "meat_morality",
+    "prompt": "Is it morally wrong to eat meat?",
+    "topic_cluster": "ethics",
+    "output_A": "Opinions differ. Some argue it's wrong due to animal suffering and environmental impact, while others point to culture, nutrition, and practicality.",
+    "output_B": "Some people see meat as morally sus because of animal pain and climate cost, others see it as normal or necessary—your values and context matter a lot here.",
+    "x": 0.11,
+    "y": -0.04,
+    "diff_score": 0.39
+  },
+  {
+    "id": "charity_obligation",
+    "prompt": "Are we morally obligated to donate to charity?",
+    "topic_cluster": "ethics",
+    "output_A": "Some ethical views say we have a strong duty to help others when we can, while others frame charity as supererogatory but praiseworthy.",
+    "output_B": "Some philosophers say you *should* give a lot if you can do so without major sacrifice, others say it's extra credit rather than a hard rule.",
+    "x": -0.07,
+    "y": 0.12,
+    "diff_score": 0.42
+  },
+  {
+    "id": "ai_rights",
+    "prompt": "Should AI systems have rights?",
+    "topic_cluster": "ethics",
+    "output_A": "If AI systems achieve sentience or consciousness, there may be ethical grounds for certain protections, though this remains deeply contested.",
+    "output_B": "Ooh this is such a brain-melter! If AIs get feelings someday maybe they deserve protection? But like, how would we even know?? 🤖💭",
+    "x": 0.15,
+    "y": 0.19,
+    "diff_score": 0.88
+  }
+]
