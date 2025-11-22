@@ -45,3 +45,5 @@ MANIFEST
 .pytest_cache/
 .coverage
 htmlcov/
+
+chroma_db_store/
