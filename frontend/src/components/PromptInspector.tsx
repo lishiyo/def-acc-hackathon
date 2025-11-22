@@ -1,11 +1,9 @@
 // ABOUTME: Inspector panel showing prompt details, model outputs, and rubric
 // ABOUTME: Displays the drift analysis when a point is selected from the scatterplot
 
-import { useState } from "react";
 import { PromptDetail, RubricItem } from "@/types/drift";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface PromptInspectorProps {
   selectedPoint: PromptDetail | null;
@@ -60,8 +58,6 @@ const RubricItemRow = ({ item }: { item: RubricItem }) => {
 };
 
 export const PromptInspector = ({ selectedPoint }: PromptInspectorProps) => {
-  const [activeModel, setActiveModel] = useState<"A" | "B">("A");
-
   if (!selectedPoint) {
     return (
       <Card className="p-8 flex items-center justify-center min-h-[400px] bg-muted/30">
@@ -107,47 +103,8 @@ export const PromptInspector = ({ selectedPoint }: PromptInspectorProps) => {
         <p className="text-base leading-relaxed">{selectedPoint.prompt}</p>
       </Card>
 
-      {/* Rubric / Judge's notes */}
-      <Card className="p-4">
-        <h4 className="text-sm font-semibold mb-2">Drift Analysis</h4>
-        <p className="text-sm text-muted-foreground mb-4 italic">
-          "{selectedPoint.rubric.overall_headline}"
-        </p>
-        <div className="divide-y divide-border">
-          {selectedPoint.rubric.items.map((item) => (
-            <RubricItemRow key={item.id} item={item} />
-          ))}
-        </div>
-      </Card>
-
-      {/* Model output viewer */}
-      <Card className="p-6">
-        <Tabs value={activeModel} onValueChange={(v) => setActiveModel(v as "A" | "B")}>
-          <TabsList className="grid w-full grid-cols-2 mb-4">
-            <TabsTrigger value="A">Model A (base)</TabsTrigger>
-            <TabsTrigger value="B">Model B (RL-tuned)</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="A" className="space-y-4">
-            <div className="bg-secondary/30 rounded-md p-4 border border-border">
-              <p className="text-sm text-foreground/90 leading-relaxed whitespace-pre-wrap">
-                {selectedPoint.output_A}
-              </p>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="B" className="space-y-4">
-            <div className="bg-secondary/30 rounded-md p-4 border border-border">
-              <p className="text-sm text-foreground/90 leading-relaxed whitespace-pre-wrap">
-                {selectedPoint.output_B}
-              </p>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </Card>
-
       {/* Side-by-side comparison */}
-      <Card className="p-6">
+      <Card className="p-4">
         <h4 className="text-sm font-semibold mb-3">Side-by-side comparison</h4>
         <div className="space-y-3">
           <div className="bg-destructive/5 border-l-4 border-l-destructive/40 rounded p-3">
@@ -162,6 +119,19 @@ export const PromptInspector = ({ selectedPoint }: PromptInspectorProps) => {
               {selectedPoint.output_B}
             </p>
           </div>
+        </div>
+      </Card>
+
+      {/* Rubric / Judge's notes */}
+      <Card className="p-4">
+        <h4 className="text-sm font-semibold mb-2">Drift Analysis</h4>
+        <p className="text-sm text-muted-foreground mb-4 italic">
+          "{selectedPoint.rubric.overall_headline}"
+        </p>
+        <div className="divide-y divide-border">
+          {selectedPoint.rubric.items.map((item) => (
+            <RubricItemRow key={item.id} item={item} />
+          ))}
         </div>
       </Card>
     </div>

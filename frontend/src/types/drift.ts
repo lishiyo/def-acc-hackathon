@@ -60,3 +60,16 @@ export interface ClusterFilter {
   cluster_2?: string;
   cluster_3?: string;
 }
+
+// Comparison (system prompt variant)
+export interface Comparison {
+  id: string;
+  label: string;
+  system_prompt: string;
+}
+
+// Response from GET /api/comparisons
+export interface ComparisonsData {
+  base_system_prompt: string;
+  comparisons: Comparison[];
+}

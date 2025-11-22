@@ -2,12 +2,19 @@
 // ABOUTME: Fetches prompts from API and displays them in an interactive visualization
 
 import { useState, useEffect, useMemo } from "react";
-import { PromptListItem, PromptDetail, ClustersData, Cluster1Node, Cluster2Node } from "@/types/drift";
-import { fetchPrompts, fetchPromptDetail, fetchClusters } from "@/lib/api";
+import { PromptListItem, PromptDetail, ClustersData, Cluster1Node, Cluster2Node, ComparisonsData, Comparison } from "@/types/drift";
+import { fetchPrompts, fetchPromptDetail, fetchClusters, fetchComparisons } from "@/lib/api";
 import { DriftScatterplot } from "./DriftScatterplot";
 import { PromptInspector } from "./PromptInspector";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ClusterSelection {
   cluster_1: string | null;
@@ -21,6 +28,8 @@ export const DriftExplorer = () => {
   const [selectedPoint, setSelectedPoint] = useState<PromptListItem | null>(null);
   const [selectedDetail, setSelectedDetail] = useState<PromptDetail | null>(null);
   const [clusters, setClusters] = useState<ClustersData | null>(null);
+  const [comparisonsData, setComparisonsData] = useState<ComparisonsData | null>(null);
+  const [selectedComparison, setSelectedComparison] = useState<string>("uwu");
   const [minDrift, setMinDrift] = useState(0.2);
   const [clusterSelection, setClusterSelection] = useState<ClusterSelection>({
     cluster_1: null,
@@ -30,28 +39,50 @@ export const DriftExplorer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch initial data
+  // Get the current comparison metadata
+  const currentComparison = useMemo<Comparison | undefined>(() => {
+    return comparisonsData?.comparisons.find(c => c.id === selectedComparison);
+  }, [comparisonsData, selectedComparison]);
+
+  // Fetch comparisons and clusters on mount
   useEffect(() => {
-    const loadData = async () => {
+    const loadInitialData = async () => {
       try {
-        setLoading(true);
-        const [promptsData, clustersData] = await Promise.all([
-          fetchPrompts(),
+        const [comparisons, clustersData] = await Promise.all([
+          fetchComparisons(),
           fetchClusters(),
         ]);
+        setComparisonsData(comparisons);
+        setClusters(clustersData);
+      } catch (err) {
+        console.error("Failed to load initial data:", err);
+        setError(err instanceof Error ? err.message : "Failed to load data");
+      }
+    };
+    loadInitialData();
+  }, []);
+
+  // Fetch prompts when comparison changes
+  useEffect(() => {
+    const loadPrompts = async () => {
+      try {
+        setLoading(true);
+        const promptsData = await fetchPrompts(selectedComparison);
         setData(promptsData);
         setFilteredData(promptsData);
-        setClusters(clustersData);
         setError(null);
+        // Clear selection when changing comparison
+        setSelectedPoint(null);
+        setSelectedDetail(null);
       } catch (err) {
-        console.error("Failed to load data:", err);
-        setError(err instanceof Error ? err.message : "Failed to load data");
+        console.error("Failed to load prompts:", err);
+        setError(err instanceof Error ? err.message : "Failed to load prompts");
       } finally {
         setLoading(false);
       }
     };
-    loadData();
-  }, []);
+    loadPrompts();
+  }, [selectedComparison]);
 
   // Filter data when filters change
   useEffect(() => {
@@ -85,14 +116,14 @@ export const DriftExplorer = () => {
 
     const loadDetail = async () => {
       try {
-        const detail = await fetchPromptDetail(selectedPoint.id);
+        const detail = await fetchPromptDetail(selectedPoint.id, selectedComparison);
         setSelectedDetail(detail);
       } catch (err) {
         console.error("Failed to load prompt detail:", err);
       }
     };
     loadDetail();
-  }, [selectedPoint]);
+  }, [selectedPoint, selectedComparison]);
 
   // Get available cluster_2 options based on cluster_1 selection
   const cluster2Options = useMemo(() => {
@@ -135,7 +166,7 @@ export const DriftExplorer = () => {
     });
   };
 
-  if (loading) {
+  if (loading && !data.length) {
     return (
       <section id="explorer" className="py-16">
         <div className="text-center text-muted-foreground">Loading...</div>
@@ -160,17 +191,47 @@ export const DriftExplorer = () => {
     <section id="explorer" className="py-16">
       <div className="mb-8">
         <h2 className="text-4xl font-serif font-semibold mb-2">
-          Model Drift Explorer
+          System Prompt Drift Explorer
         </h2>
-        <p className="text-muted-foreground max-w-3xl">
-          We trained Model B to respond in a more casual "uwu" style. But the
-          changes weren't just stylistic—across topics, the model developed
-          surprising behavioral differences.{" "}
+        <p className="text-muted-foreground max-w-3xl mb-4">
+          Compare how different system prompts affect model behavior across topics.
+          Select a variant below to see how it differs from the base prompt.{" "}
           <span className="font-medium text-foreground">
             Click on the red dots
           </span>{" "}
           to see which prompts diverged the most.
         </p>
+
+        {/* Comparison Selector */}
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 bg-muted/50 rounded-lg">
+          <div className="flex-shrink-0">
+            <label className="text-sm font-medium block mb-1">Compare to:</label>
+            <Select value={selectedComparison} onValueChange={setSelectedComparison}>
+              <SelectTrigger className="w-[200px]">
+                <SelectValue placeholder="Select variant" />
+              </SelectTrigger>
+              <SelectContent>
+                {comparisonsData?.comparisons.map((c) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          {currentComparison && (
+            <div className="flex-1 text-sm">
+              <div className="text-muted-foreground mb-1">
+                <span className="font-medium text-foreground">Base:</span>{" "}
+                {comparisonsData?.base_system_prompt}
+              </div>
+              <div className="text-muted-foreground">
+                <span className="font-medium text-foreground">Variant:</span>{" "}
+                {currentComparison.system_prompt}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-[600px_1fr] gap-8 mb-8">
@@ -287,6 +348,7 @@ export const DriftExplorer = () => {
 
             <div className="text-xs text-muted-foreground pt-2 border-t border-border">
               Showing {filteredData.length} of {data.length} prompts
+              {loading && " (loading...)"}
             </div>
           </div>
         </div>
