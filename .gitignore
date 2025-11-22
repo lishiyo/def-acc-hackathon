@@ -47,3 +47,4 @@ MANIFEST
 htmlcov/
 
 chroma_db_store/
+frontend/node_modules/
