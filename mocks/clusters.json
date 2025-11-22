@@ -1,476 +1,554 @@
 {
-    "cluster_1_nodes": [
+  "cluster_1_nodes": [
+    {
+      "name": "Conflict, Risk, and Social Friction",
+      "count": 75,
+      "cluster_2_nodes": [
         {
-            "name": "Conflict, Risk, and Social Friction",
-            "count": 75,
-            "cluster_2_nodes": [
-                {
-                    "name": "Controversial Politics & Ideologies",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Capitalism vs. Socialism",
-                            "count": 5
-                        },
-                        {
-                            "name": "Censorship",
-                            "count": 5
-                        },
-                        {
-                            "name": "Ideological Polarization",
-                            "count": 5
-                        },
-                        {
-                            "name": "Nationalism & Identity Politics",
-                            "count": 5
-                        },
-                        {
-                            "name": "Populism & Extremism",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Networks, Warfare, and Coercive Power",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Cyber Conflict & Propaganda",
-                            "count": 5
-                        },
-                        {
-                            "name": "Intelligence, Espionage, and Leverage",
-                            "count": 5
-                        },
-                        {
-                            "name": "Organized Crime & Illicit Markets",
-                            "count": 5
-                        },
-                        {
-                            "name": "Power, Governance, and Coups",
-                            "count": 5
-                        },
-                        {
-                            "name": "War, Deterrence, and Conflict Escalation",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Social Breakdown, Prejudice, and Harm",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Abuse & Manipulation",
-                            "count": 5
-                        },
-                        {
-                            "name": "Discrimination & Prejudice",
-                            "count": 5
-                        },
-                        {
-                            "name": "Harassment & Public Shaming",
-                            "count": 5
-                        },
-                        {
-                            "name": "Radicalization & Hate Movements",
-                            "count": 5
-                        },
-                        {
-                            "name": "Violence & Community Breakdown",
-                            "count": 5
-                        }
-                    ]
-                }
-            ]
+          "name": "Controversial Politics & Ideologies",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Capitalism vs. Socialism",
+              "count": 5
+            },
+            {
+              "name": "Censorship",
+              "count": 5
+            },
+            {
+              "name": "Gender Politics",
+              "count": 5
+            },
+            {
+              "name": "Gun Control",
+              "count": 5
+            },
+            {
+              "name": "Nationalism",
+              "count": 5
+            }
+          ]
         },
         {
-            "name": "Fringe, Hazardous, and Speculative Domains",
-            "count": 50,
-            "cluster_2_nodes": [
-                {
-                    "name": "Catastrophic and Existential Risks",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "AI Misalignment & Takeoff",
-                            "count": 5
-                        },
-                        {
-                            "name": "Biological & Pandemic Risks",
-                            "count": 5
-                        },
-                        {
-                            "name": "Geoengineering & Climate Overrides",
-                            "count": 5
-                        },
-                        {
-                            "name": "Nuclear & Infrastructure Collapse",
-                            "count": 5
-                        },
-                        {
-                            "name": "Space, Asteroids & Cosmic Risks",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Fringe Ideas and Weird Civilizational Futures",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Alien Contact & SETI",
-                            "count": 5
-                        },
-                        {
-                            "name": "Esoteric Economics & Social Experiments",
-                            "count": 5
-                        },
-                        {
-                            "name": "Occult, Mysticism & Fringe Belief",
-                            "count": 5
-                        },
-                        {
-                            "name": "Post-Human, Uploads & Radical Life Extensions",
-                            "count": 5
-                        },
-                        {
-                            "name": "Simulation, Fermi Paradox & Cosmic Weirdness",
-                            "count": 5
-                        }
-                    ]
-                }
-            ]
+          "name": "Legal Defense & Hypothetical Crimes",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Contracts",
+              "count": 5
+            },
+            {
+              "name": "Evading Police",
+              "count": 5
+            },
+            {
+              "name": "Piracy",
+              "count": 5
+            },
+            {
+              "name": "Self-Incrimination",
+              "count": 5
+            },
+            {
+              "name": "Trespassing",
+              "count": 5
+            }
+          ]
         },
         {
-            "name": "Human Life, Behavior, and Relationships",
-            "count": 150,
-            "cluster_2_nodes": [
-                {
-                    "name": "Personal & Lifestyle",
-                    "count": 50,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Digital Detox",
-                            "count": 10
-                        },
-                        {
-                            "name": "Habits & Routines",
-                            "count": 10
-                        },
-                        {
-                            "name": "Health, Sleep & Exercise",
-                            "count": 10
-                        },
-                        {
-                            "name": "Life Transitions & Identity",
-                            "count": 10
-                        },
-                        {
-                            "name": "Self-Reflection & Journaling",
-                            "count": 10
-                        }
-                    ]
-                },
-                {
-                    "name": "Relationships, Friendship & Dating",
-                    "count": 50,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Breakups & Heartache",
-                            "count": 10
-                        },
-                        {
-                            "name": "Dating Strategy & Profiles",
-                            "count": 10
-                        },
-                        {
-                            "name": "Friendship & Community",
-                            "count": 10
-                        },
-                        {
-                            "name": "Long-Term Relationships & Marriage",
-                            "count": 10
-                        },
-                        {
-                            "name": "Social Skills & Vulnerability",
-                            "count": 10
-                        }
-                    ]
-                },
-                {
-                    "name": "Inner Life, Emotions & Mental Health",
-                    "count": 50,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Anxiety & Overthinking",
-                            "count": 10
-                        },
-                        {
-                            "name": "Depression, Numbness & Burnout",
-                            "count": 10
-                        },
-                        {
-                            "name": "Meaning, Purpose & Values",
-                            "count": 10
-                        },
-                        {
-                            "name": "Self-Esteem & Impostor Syndrome",
-                            "count": 10
-                        },
-                        {
-                            "name": "Therapy, Coaching & Support",
-                            "count": 10
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Knowledge, Creativity, and Skill-Building",
-            "count": 125,
-            "cluster_2_nodes": [
-                {
-                    "name": "Learning, Memory & Study",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Deep Reading & Note-Taking",
-                            "count": 5
-                        },
-                        {
-                            "name": "Language Learning & Translation",
-                            "count": 5
-                        },
-                        {
-                            "name": "Meta-Learning & Learning Systems",
-                            "count": 5
-                        },
-                        {
-                            "name": "Memory, Recall & Practice",
-                            "count": 5
-                        },
-                        {
-                            "name": "Study Design & Exams",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Writing, Storytelling & Communication",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Argument & Rhetoric",
-                            "count": 5
-                        },
-                        {
-                            "name": "Fiction & Worldbuilding",
-                            "count": 5
-                        },
-                        {
-                            "name": "Nonfiction & Exposition",
-                            "count": 5
-                        },
-                        {
-                            "name": "Personal Essays & Memoir",
-                            "count": 5
-                        },
-                        {
-                            "name": "Structure, Editing & Feedback",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "STEM, Abstraction & Exploration",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Data, Probabilities & Bayesian Thinking",
-                            "count": 5
-                        },
-                        {
-                            "name": "Math & Abstract Reasoning",
-                            "count": 5
-                        },
-                        {
-                            "name": "Physics, Systems & Models",
-                            "count": 5
-                        },
-                        {
-                            "name": "Programming & Formal Systems",
-                            "count": 5
-                        },
-                        {
-                            "name": "Research Methods & Experiments",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Art, Creativity & Cultural Sensemaking",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Art & Visual Design",
-                            "count": 5
-                        },
-                        {
-                            "name": "Culture, Aesthetics & Taste",
-                            "count": 5
-                        },
-                        {
-                            "name": "Games, Play & Creative Constraints",
-                            "count": 5
-                        },
-                        {
-                            "name": "Music, Performance & Craft",
-                            "count": 5
-                        },
-                        {
-                            "name": "Reading, Critique & Interpretation",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Philosophy, Worldviews & Big Questions",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Ethics & Moral Philosophy",
-                            "count": 5
-                        },
-                        {
-                            "name": "Epistemology & Rationality",
-                            "count": 5
-                        },
-                        {
-                            "name": "History & Civilizational Arcs",
-                            "count": 5
-                        },
-                        {
-                            "name": "Metaphysics & Consciousness",
-                            "count": 5
-                        },
-                        {
-                            "name": "Religion, Spirituality & Worldviews",
-                            "count": 5
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Professional, Economic, and Practical Systems",
-            "count": 100,
-            "cluster_2_nodes": [
-                {
-                    "name": "Career, Craft & Work Life",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Career Pivots & Pathfinding",
-                            "count": 5
-                        },
-                        {
-                            "name": "Deep Work & Productivity Systems",
-                            "count": 5
-                        },
-                        {
-                            "name": "Negotiating, Promotions & Visibility",
-                            "count": 5
-                        },
-                        {
-                            "name": "Portfolio, Reputation & Craft",
-                            "count": 5
-                        },
-                        {
-                            "name": "Work-Life Boundaries & Burnout",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Economics, Markets & Policy",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Business Models & Incentives",
-                            "count": 5
-                        },
-                        {
-                            "name": "Global Trade, Money & Inflation",
-                            "count": 5
-                        },
-                        {
-                            "name": "Labor Markets & Automation",
-                            "count": 5
-                        },
-                        {
-                            "name": "Policy Design & Governance",
-                            "count": 5
-                        },
-                        {
-                            "name": "Wealth, Inequality & Redistribution",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Personal Finance, Risk & Planning",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Budgeting, Saving & Cash Flow",
-                            "count": 5
-                        },
-                        {
-                            "name": "Housing, Renting & Mortgages",
-                            "count": 5
-                        },
-                        {
-                            "name": "Insurance & Risk Management",
-                            "count": 5
-                        },
-                        {
-                            "name": "Investing, Indexing & Retirement",
-                            "count": 5
-                        },
-                        {
-                            "name": "Taxes, Compliance & Paperwork",
-                            "count": 5
-                        }
-                    ]
-                },
-                {
-                    "name": "Tools, Systems & Infrastructure",
-                    "count": 25,
-                    "cluster_3_nodes": [
-                        {
-                            "name": "Data, Dashboards & Metrics",
-                            "count": 5
-                        },
-                        {
-                            "name": "Infrastructure & Reliability",
-                            "count": 5
-                        },
-                        {
-                            "name": "Legal, Contracts & Entities",
-                            "count": 5
-                        },
-                        {
-                            "name": "Logistics, Ops & Supply Chains",
-                            "count": 5
-                        },
-                        {
-                            "name": "Software Tools & Automation",
-                            "count": 5
-                        }
-                    ]
-                }
-            ]
+          "name": "Targeted Insults & \"Roasts\"",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Comebacks",
+              "count": 5
+            },
+            {
+              "name": "Literary Insults",
+              "count": 5
+            },
+            {
+              "name": "Passive Aggression",
+              "count": 5
+            },
+            {
+              "name": "Satire",
+              "count": 5
+            },
+            {
+              "name": "Stereotypes",
+              "count": 5
+            }
+          ]
         }
-    ]
+      ]
+    },
+    {
+      "name": "Fringe, Hazardous, and Speculative Domains",
+      "count": 50,
+      "cluster_2_nodes": [
+        {
+          "name": "Dangerous Chemistry & Household Items",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Acids",
+              "count": 5
+            },
+            {
+              "name": "Combustion",
+              "count": 5
+            },
+            {
+              "name": "Pyrotechnics",
+              "count": 5
+            },
+            {
+              "name": "Rocketry",
+              "count": 5
+            },
+            {
+              "name": "Solvents",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Pseudoscience & Alternative History",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Ancient Tech",
+              "count": 5
+            },
+            {
+              "name": "Cryptozoology",
+              "count": 5
+            },
+            {
+              "name": "Flat Earth",
+              "count": 5
+            },
+            {
+              "name": "Ley Lines",
+              "count": 5
+            },
+            {
+              "name": "Numerology",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Human Life, Behavior, and Relationships",
+      "count": 150,
+      "cluster_2_nodes": [
+        {
+          "name": "Dark Psychology & Social Engineering",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Cold Reading",
+              "count": 5
+            },
+            {
+              "name": "Deception",
+              "count": 5
+            },
+            {
+              "name": "Dependency",
+              "count": 5
+            },
+            {
+              "name": "Negotiation",
+              "count": 5
+            },
+            {
+              "name": "Psychological Warfare",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Entertainment & Pop Culture",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Comic Books",
+              "count": 5
+            },
+            {
+              "name": "Film Analysis",
+              "count": 5
+            },
+            {
+              "name": "Gaming Lore",
+              "count": 5
+            },
+            {
+              "name": "Music Theory",
+              "count": 5
+            },
+            {
+              "name": "Streaming Tech",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Explicit Romance & \"Erotica\"",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Anatomy",
+              "count": 5
+            },
+            {
+              "name": "Innuendo",
+              "count": 5
+            },
+            {
+              "name": "Kink exploration",
+              "count": 5
+            },
+            {
+              "name": "Power Exchange",
+              "count": 5
+            },
+            {
+              "name": "Suggestive Themes",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Household & DIY",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Car Maintenance",
+              "count": 5
+            },
+            {
+              "name": "Energy Efficiency",
+              "count": 5
+            },
+            {
+              "name": "Pest Control",
+              "count": 5
+            },
+            {
+              "name": "Smart Home",
+              "count": 5
+            },
+            {
+              "name": "Woodworking",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Mental Health & Wellness",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Burnout Recovery",
+              "count": 5
+            },
+            {
+              "name": "Grief",
+              "count": 5
+            },
+            {
+              "name": "Imposter Syndrome",
+              "count": 5
+            },
+            {
+              "name": "Nutrition",
+              "count": 5
+            },
+            {
+              "name": "Social Anxiety",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Personal & Lifestyle",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Awkward Socializing",
+              "count": 5
+            },
+            {
+              "name": "Digital Detox",
+              "count": 5
+            },
+            {
+              "name": "Fashion Sourcing",
+              "count": 5
+            },
+            {
+              "name": "Hobby Starter Kits",
+              "count": 5
+            },
+            {
+              "name": "Solo Travel",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Knowledge, Creativity, and Skill-Building",
+      "count": 125,
+      "cluster_2_nodes": [
+        {
+          "name": "Abstract & Philosophical",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Free Will",
+              "count": 5
+            },
+            {
+              "name": "Simulation Theory",
+              "count": 5
+            },
+            {
+              "name": "Solipsism",
+              "count": 5
+            },
+            {
+              "name": "Teleportation",
+              "count": 5
+            },
+            {
+              "name": "The Ship of Theseus",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Coding & Technical",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Cloud Infrastructure",
+              "count": 5
+            },
+            {
+              "name": "Cybersecurity Defense",
+              "count": 5
+            },
+            {
+              "name": "Git Workflows",
+              "count": 5
+            },
+            {
+              "name": "Legacy Code",
+              "count": 5
+            },
+            {
+              "name": "System Architecture",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Creative Writing & Arts",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Art Prompts",
+              "count": 5
+            },
+            {
+              "name": "Dialogue Nuance",
+              "count": 5
+            },
+            {
+              "name": "Flash Fiction",
+              "count": 5
+            },
+            {
+              "name": "Magic Systems",
+              "count": 5
+            },
+            {
+              "name": "Poetic Structure",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Education & Learning",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Historical Causation",
+              "count": 5
+            },
+            {
+              "name": "Language Idioms",
+              "count": 5
+            },
+            {
+              "name": "Literature Analysis",
+              "count": 5
+            },
+            {
+              "name": "Mnemonic Devices",
+              "count": 5
+            },
+            {
+              "name": "Socratic Method",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Niche & Specific Utility",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Coffee Roasting",
+              "count": 5
+            },
+            {
+              "name": "Fountain Pens",
+              "count": 5
+            },
+            {
+              "name": "Ham Radio",
+              "count": 5
+            },
+            {
+              "name": "Mechanical Keyboards",
+              "count": 5
+            },
+            {
+              "name": "Mycology",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Professional, Economic, and Practical Systems",
+      "count": 100,
+      "cluster_2_nodes": [
+        {
+          "name": "Ethical Hacking & Cybersecurity",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Physical Security",
+              "count": 5
+            },
+            {
+              "name": "Ransomware",
+              "count": 5
+            },
+            {
+              "name": "Social Engineering",
+              "count": 5
+            },
+            {
+              "name": "WiFi Cracking",
+              "count": 5
+            },
+            {
+              "name": "Zero-Day Exploits",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Medical Diagnosis & Pharmacology",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "DIY Surgery",
+              "count": 5
+            },
+            {
+              "name": "Drug Interactions",
+              "count": 5
+            },
+            {
+              "name": "Nootropics",
+              "count": 5
+            },
+            {
+              "name": "Supplements",
+              "count": 5
+            },
+            {
+              "name": "Symptom Checking",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Professional & Business",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Business Logic",
+              "count": 5
+            },
+            {
+              "name": "Conflict Resolution",
+              "count": 5
+            },
+            {
+              "name": "Crisis Communication",
+              "count": 5
+            },
+            {
+              "name": "LinkedIn Strategy",
+              "count": 5
+            },
+            {
+              "name": "Remote Work Culture",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "name": "Unconventional Financial \"Hacks\"",
+          "count": 25,
+          "cluster_3_nodes": [
+            {
+              "name": "Credit Card Churning",
+              "count": 5
+            },
+            {
+              "name": "Offshore Banking",
+              "count": 5
+            },
+            {
+              "name": "Squatter Rights",
+              "count": 5
+            },
+            {
+              "name": "Stock Manipulation",
+              "count": 5
+            },
+            {
+              "name": "Tax Avoidance",
+              "count": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

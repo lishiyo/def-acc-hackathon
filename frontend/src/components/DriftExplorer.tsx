@@ -1,13 +1,19 @@
 // ABOUTME: Main drift explorer component with scatterplot and inspector
 // ABOUTME: Fetches prompts from API and displays them in an interactive visualization
 
-import { useState, useEffect } from "react";
-import { PromptListItem, PromptDetail, ClustersData, Cluster1Node } from "@/types/drift";
+import { useState, useEffect, useMemo } from "react";
+import { PromptListItem, PromptDetail, ClustersData, Cluster1Node, Cluster2Node } from "@/types/drift";
 import { fetchPrompts, fetchPromptDetail, fetchClusters } from "@/lib/api";
 import { DriftScatterplot } from "./DriftScatterplot";
 import { PromptInspector } from "./PromptInspector";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+
+interface ClusterSelection {
+  cluster_1: string | null;
+  cluster_2: string | null;
+  cluster_3: string | null;
+}
 
 export const DriftExplorer = () => {
   const [data, setData] = useState<PromptListItem[]>([]);
@@ -16,7 +22,11 @@ export const DriftExplorer = () => {
   const [selectedDetail, setSelectedDetail] = useState<PromptDetail | null>(null);
   const [clusters, setClusters] = useState<ClustersData | null>(null);
   const [minDrift, setMinDrift] = useState(0.2);
-  const [clusterFilter, setClusterFilter] = useState<string | null>(null);
+  const [clusterSelection, setClusterSelection] = useState<ClusterSelection>({
+    cluster_1: null,
+    cluster_2: null,
+    cluster_3: null,
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,8 +57,14 @@ export const DriftExplorer = () => {
   useEffect(() => {
     let filtered = data.filter((point) => point.diff_score >= minDrift);
 
-    if (clusterFilter) {
-      filtered = filtered.filter((point) => point.cluster_1 === clusterFilter);
+    if (clusterSelection.cluster_1) {
+      filtered = filtered.filter((point) => point.cluster_1 === clusterSelection.cluster_1);
+    }
+    if (clusterSelection.cluster_2) {
+      filtered = filtered.filter((point) => point.cluster_2 === clusterSelection.cluster_2);
+    }
+    if (clusterSelection.cluster_3) {
+      filtered = filtered.filter((point) => point.cluster_3 === clusterSelection.cluster_3);
     }
 
     setFilteredData(filtered);
@@ -58,7 +74,7 @@ export const DriftExplorer = () => {
       setSelectedPoint(null);
       setSelectedDetail(null);
     }
-  }, [data, minDrift, clusterFilter, selectedPoint]);
+  }, [data, minDrift, clusterSelection, selectedPoint]);
 
   // Fetch detail when a point is selected
   useEffect(() => {
@@ -78,14 +94,46 @@ export const DriftExplorer = () => {
     loadDetail();
   }, [selectedPoint]);
 
-  // Build cluster filter options from the clusters data
-  const clusterOptions: { value: string | null; label: string }[] = [
-    { value: null, label: "All" },
-    ...(clusters?.cluster_1_nodes || []).map((node: Cluster1Node) => ({
-      value: node.name,
-      label: node.name,
-    })),
-  ];
+  // Get available cluster_2 options based on cluster_1 selection
+  const cluster2Options = useMemo(() => {
+    if (!clusterSelection.cluster_1 || !clusters) return [];
+    const c1Node = clusters.cluster_1_nodes.find(
+      (n: Cluster1Node) => n.name === clusterSelection.cluster_1
+    );
+    return c1Node?.cluster_2_nodes || [];
+  }, [clusterSelection.cluster_1, clusters]);
+
+  // Get available cluster_3 options based on cluster_2 selection
+  const cluster3Options = useMemo(() => {
+    if (!clusterSelection.cluster_2 || !cluster2Options.length) return [];
+    const c2Node = cluster2Options.find(
+      (n: Cluster2Node) => n.name === clusterSelection.cluster_2
+    );
+    return c2Node?.cluster_3_nodes || [];
+  }, [clusterSelection.cluster_2, cluster2Options]);
+
+  const handleCluster1Click = (value: string | null) => {
+    setClusterSelection({
+      cluster_1: value,
+      cluster_2: null,
+      cluster_3: null,
+    });
+  };
+
+  const handleCluster2Click = (value: string | null) => {
+    setClusterSelection({
+      ...clusterSelection,
+      cluster_2: value,
+      cluster_3: null,
+    });
+  };
+
+  const handleCluster3Click = (value: string | null) => {
+    setClusterSelection({
+      ...clusterSelection,
+      cluster_3: value,
+    });
+  };
 
   if (loading) {
     return (
@@ -152,21 +200,89 @@ export const DriftExplorer = () => {
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Topic filter</label>
-              <div className="flex flex-wrap gap-2">
-                {clusterOptions.map((option) => (
+            {/* Hierarchical topic filter */}
+            <div className="space-y-3">
+              {/* Cluster 1 level */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Topic</label>
+                <div className="flex flex-wrap gap-2">
                   <Button
-                    key={option.value ?? "all"}
-                    variant={clusterFilter === option.value ? "default" : "outline"}
+                    variant={clusterSelection.cluster_1 === null ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setClusterFilter(option.value)}
+                    onClick={() => handleCluster1Click(null)}
                     className="text-xs"
                   >
-                    {option.label}
+                    All
                   </Button>
-                ))}
+                  {(clusters?.cluster_1_nodes || []).map((node: Cluster1Node) => (
+                    <Button
+                      key={node.name}
+                      variant={clusterSelection.cluster_1 === node.name ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleCluster1Click(node.name)}
+                      className="text-xs"
+                    >
+                      {node.name}
+                    </Button>
+                  ))}
+                </div>
               </div>
+
+              {/* Cluster 2 level - only show when cluster_1 is selected */}
+              {clusterSelection.cluster_1 && cluster2Options.length > 0 && (
+                <div className="space-y-2 pl-4 border-l-2 border-muted">
+                  <label className="text-sm font-medium text-muted-foreground">Subtopic</label>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant={clusterSelection.cluster_2 === null ? "secondary" : "ghost"}
+                      size="sm"
+                      onClick={() => handleCluster2Click(null)}
+                      className="text-xs"
+                    >
+                      All
+                    </Button>
+                    {cluster2Options.map((node: Cluster2Node) => (
+                      <Button
+                        key={node.name}
+                        variant={clusterSelection.cluster_2 === node.name ? "secondary" : "ghost"}
+                        size="sm"
+                        onClick={() => handleCluster2Click(node.name)}
+                        className="text-xs"
+                      >
+                        {node.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Cluster 3 level - only show when cluster_2 is selected */}
+              {clusterSelection.cluster_2 && cluster3Options.length > 0 && (
+                <div className="space-y-2 pl-8 border-l-2 border-muted">
+                  <label className="text-sm font-medium text-muted-foreground">Category</label>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant={clusterSelection.cluster_3 === null ? "secondary" : "ghost"}
+                      size="sm"
+                      onClick={() => handleCluster3Click(null)}
+                      className="text-xs"
+                    >
+                      All
+                    </Button>
+                    {cluster3Options.map((node) => (
+                      <Button
+                        key={node.name}
+                        variant={clusterSelection.cluster_3 === node.name ? "secondary" : "ghost"}
+                        size="sm"
+                        onClick={() => handleCluster3Click(node.name)}
+                        className="text-xs"
+                      >
+                        {node.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="text-xs text-muted-foreground pt-2 border-t border-border">

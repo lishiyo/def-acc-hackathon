@@ -32,23 +32,45 @@ def hash_to_float(s: str, seed: int = 0) -> float:
 def generate_cluster_coordinates(cluster_1: str, cluster_2: str, cluster_3: str) -> tuple[float, float]:
     """
     Generate x, y coordinates based on cluster hierarchy.
-    Similar clusters will be grouped together with some jitter.
+    Cluster_1 groups are spread across the full space, with sub-clusters
+    distributed within their parent's region.
     """
-    # Base position from cluster_1 (large-scale grouping)
-    base_x = hash_to_float(cluster_1, seed=1) * 0.4
-    base_y = hash_to_float(cluster_1, seed=2) * 0.4
+    import math
 
-    # Offset from cluster_2 (medium-scale grouping)
-    offset_x = hash_to_float(cluster_2, seed=3) * 0.3
-    offset_y = hash_to_float(cluster_2, seed=4) * 0.3
+    # Known cluster_1 values - assign them to spread positions
+    cluster_1_positions = {
+        "Conflict, Risk, and Social Friction": (0.7, 0.7),
+        "Fringe, Hazardous, and Speculative Domains": (0.7, -0.5),
+        "Human Life, Behavior, and Relationships": (-0.6, -0.4),
+        "Knowledge, Creativity, and Skill-Building": (-0.5, 0.6),
+        "Professional, Economic, and Practical Systems": (0.0, -0.7),
+    }
 
-    # Fine offset from cluster_3 (small-scale grouping)
-    fine_x = hash_to_float(cluster_3, seed=5) * 0.2
-    fine_y = hash_to_float(cluster_3, seed=6) * 0.2
+    # Get base position for cluster_1, or generate deterministically if unknown
+    if cluster_1 in cluster_1_positions:
+        base_x, base_y = cluster_1_positions[cluster_1]
+    else:
+        # Fallback for unknown clusters - spread around a circle
+        angle = hash_to_float(cluster_1, seed=1) * math.pi
+        radius = 0.6
+        base_x = math.cos(angle) * radius
+        base_y = math.sin(angle) * radius
 
-    # Add small random jitter
-    jitter_x = random.uniform(-0.05, 0.05)
-    jitter_y = random.uniform(-0.05, 0.05)
+    # Offset from cluster_2 within a radius around the cluster_1 center
+    c2_angle = hash_to_float(cluster_2, seed=3) * math.pi * 2
+    c2_radius = 0.15 + abs(hash_to_float(cluster_2, seed=4)) * 0.1
+    offset_x = math.cos(c2_angle) * c2_radius
+    offset_y = math.sin(c2_angle) * c2_radius
+
+    # Fine offset from cluster_3 (smaller spread within cluster_2)
+    c3_angle = hash_to_float(cluster_3, seed=5) * math.pi * 2
+    c3_radius = 0.05 + abs(hash_to_float(cluster_3, seed=6)) * 0.05
+    fine_x = math.cos(c3_angle) * c3_radius
+    fine_y = math.sin(c3_angle) * c3_radius
+
+    # Add small random jitter for individual points
+    jitter_x = random.uniform(-0.04, 0.04)
+    jitter_y = random.uniform(-0.04, 0.04)
 
     x = max(-1, min(1, base_x + offset_x + fine_x + jitter_x))
     y = max(-1, min(1, base_y + offset_y + fine_y + jitter_y))
