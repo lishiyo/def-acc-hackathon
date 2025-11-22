@@ -1,26 +1,29 @@
-import { useEffect, useRef, useState } from "react";
-import { DriftDataPoint } from "@/types/drift";
+// ABOUTME: Scatterplot visualization for prompt drift data
+// ABOUTME: Displays prompts as points colored by drift score, grouped by cluster
+
+import { useRef, useState } from "react";
+import { PromptListItem } from "@/types/drift";
 import { scaleLinear } from "d3-scale";
 
 interface DriftScatterplotProps {
-  data: DriftDataPoint[];
-  onSelectPoint: (point: DriftDataPoint | null) => void;
-  selectedPoint: DriftDataPoint | null;
+  data: PromptListItem[];
+  onSelectPoint: (point: PromptListItem | null) => void;
+  selectedPoint: PromptListItem | null;
 }
 
 export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftScatterplotProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [hoveredPoint, setHoveredPoint] = useState<DriftDataPoint | null>(null);
+  const [hoveredPoint, setHoveredPoint] = useState<PromptListItem | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
-  // Calculate cluster centroids for labeling
+  // Calculate cluster centroids for labeling (using cluster_1)
   const clusterCentroids = data.reduce((acc, point) => {
-    if (!acc[point.topic_cluster]) {
-      acc[point.topic_cluster] = { x: 0, y: 0, count: 0 };
+    if (!acc[point.cluster_1]) {
+      acc[point.cluster_1] = { x: 0, y: 0, count: 0 };
     }
-    acc[point.topic_cluster].x += point.x;
-    acc[point.topic_cluster].y += point.y;
-    acc[point.topic_cluster].count += 1;
+    acc[point.cluster_1].x += point.x;
+    acc[point.cluster_1].y += point.y;
+    acc[point.cluster_1].count += 1;
     return acc;
   }, {} as Record<string, { x: number; y: number; count: number }>);
 
@@ -43,24 +46,14 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
 
   const getColor = (diffScore: number) => {
     // Smooth interpolation from gray (0) to red (1)
-    // Stay in the red family to avoid green/yellow
-    // Low drift (0): hsl(0, 5%, 80%) - light gray with slight warmth
-    // High drift (1): hsl(8, 75%, 62%) - red accent
-    const t = diffScore; // normalized 0-1
-    
-    // Keep hue in red family: 0 -> 8
+    const t = diffScore;
     const hue = 0 + 8 * t;
-    
-    // Interpolate saturation: 5% (very muted) -> 75% (vibrant)
     const saturation = 5 + 70 * t;
-    
-    // Interpolate lightness: 80% (light) -> 62% (medium)
     const lightness = 80 - 18 * t;
-    
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   };
 
-  const handlePointClick = (point: DriftDataPoint) => {
+  const handlePointClick = (point: PromptListItem) => {
     if (selectedPoint?.id === point.id) {
       onSelectPoint(null);
     } else {
@@ -68,10 +61,10 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent, point: DriftDataPoint) => {
+  const handleMouseMove = (e: React.MouseEvent, point: PromptListItem) => {
     const svg = svgRef.current;
     if (!svg) return;
-    
+
     const rect = svg.getBoundingClientRect();
     setTooltipPos({
       x: e.clientX - rect.left,
@@ -82,9 +75,9 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
 
   return (
     <div className="relative">
-      <svg 
+      <svg
         ref={svgRef}
-        width={width} 
+        width={width}
         height={height}
         className="bg-card border border-border rounded-lg shadow-sm"
       >
@@ -114,7 +107,7 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
         {data.map((point) => {
           const isSelected = selectedPoint?.id === point.id;
           const isHovered = hoveredPoint?.id === point.id;
-          
+
           return (
             <circle
               key={point.id}
@@ -141,9 +134,8 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
             y={yScale(centroid.y)}
             textAnchor="middle"
             className="text-xs font-medium fill-foreground/40 pointer-events-none select-none"
-            style={{ textTransform: 'capitalize' }}
           >
-            {cluster}
+            {cluster.length > 20 ? cluster.substring(0, 20) + "..." : cluster}
           </text>
         ))}
 
@@ -178,9 +170,9 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
           }}
         >
           <p className="text-sm font-medium mb-1 line-clamp-2">{hoveredPoint.prompt}</p>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 text-xs flex-wrap">
             <span className="px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
-              {hoveredPoint.topic_cluster}
+              {hoveredPoint.cluster_3}
             </span>
             <span className="text-muted-foreground">
               Drift: {hoveredPoint.diff_score.toFixed(2)}
