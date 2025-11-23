@@ -1,7 +1,7 @@
 export const HeroSection = () => {
   return (
     <section className="py-16 md:py-24">
-      <div className="grid md:grid-cols-2 gap-12 items-start">
+      <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <div className="space-y-2">
             <p className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
