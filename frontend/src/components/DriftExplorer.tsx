@@ -198,7 +198,7 @@ export const DriftExplorer = () => {
     <section id="explorer" className="py-16">
       <div className="mb-8">
         <h2 className="text-4xl font-serif font-semibold mb-2">
-          Context Seed Drift Explorer
+          Model Drift Detector
         </h2>
         <p className="text-muted-foreground mb-6">
           Detect <span className="font-medium text-foreground">any</span> behavioral drift caused by injecting fake conversation history.
@@ -234,7 +234,7 @@ export const DriftExplorer = () => {
           {currentComparison && (
             <div className="p-4 bg-muted/50 rounded-lg text-sm">
               <span className="font-semibold text-foreground">Context Seed:</span>
-              <div className="mt-2 space-y-2 pl-4 border-l-2 border-border">
+              <div className="mt-2 space-y-2 pl-4 border-l-2 border-border max-h-16 overflow-y-auto">
                 {currentComparison.context_seed?.map((msg, idx) => (
                   <div key={idx} className="text-xs">
                     <span className={`font-mono font-medium ${msg.role === "user" ? "text-blue-500" : "text-green-600"}`}>

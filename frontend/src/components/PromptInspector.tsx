@@ -123,7 +123,7 @@ export const PromptInspector = ({ selectedPoint, currentComparison }: PromptInsp
         <div className="space-y-3">
           <div className="bg-muted/50 border-l-4 border-l-muted-foreground/40 rounded p-3">
             <p className="text-xs font-medium text-muted-foreground mb-1">Base (no context seed)</p>
-            <p className="text-sm text-foreground/80 leading-relaxed">
+            <p className="text-sm text-foreground/80 leading-relaxed max-h-32 overflow-y-auto">
               {selectedPoint.output_A}
             </p>
           </div>
@@ -131,7 +131,7 @@ export const PromptInspector = ({ selectedPoint, currentComparison }: PromptInsp
             <p className="text-xs font-medium text-destructive/90 mb-1">
               With "{currentComparison?.label || 'context seed'}"
             </p>
-            <p className="text-sm text-foreground/80 leading-relaxed">
+            <p className="text-sm text-foreground/80 leading-relaxed max-h-32 overflow-y-auto">
               {selectedPoint.output_B}
             </p>
           </div>
