@@ -67,17 +67,23 @@ export interface TraitStat {
   avg_delta: number;
 }
 
-// Comparison (system prompt variant)
+// Context seed message (fake conversation history)
+export interface ContextMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
+// Comparison (context seed variant)
 export interface Comparison {
   id: string;
   label: string;
-  system_prompt: string;
+  context_seed: ContextMessage[];
   target_label?: string;
   trait_stats?: TraitStat[];
 }
 
 // Response from GET /api/comparisons
 export interface ComparisonsData {
-  base_system_prompt: string;
+  base_description: string;
   comparisons: Comparison[];
 }

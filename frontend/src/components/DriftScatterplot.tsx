@@ -195,36 +195,29 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
         })}
 
         {/* Cluster labels */}
-        {Object.entries(clusterCentroids).map(([cluster, centroid]) => (
-          <text
-            key={cluster}
-            x={xScale(centroid.x)}
-            y={yScale(centroid.y)}
-            textAnchor="middle"
-            className="text-xs font-medium fill-foreground/40 pointer-events-none select-none"
-          >
-            {cluster.length > 20 ? cluster.substring(0, 20) + "..." : cluster}
-          </text>
-        ))}
+        {Object.entries(clusterCentroids).map(([cluster, centroid]) => {
+          const x = xScale(centroid.x);
+          const y = yScale(centroid.y);
+          // Determine text anchor based on position to keep labels inside chart
+          const isRightSide = centroid.x > 0.3;
+          const isLeftSide = centroid.x < -0.3;
+          const textAnchor = isRightSide ? "end" : isLeftSide ? "start" : "middle";
+          // Offset label below the cluster
+          const yOffset = 20;
 
-        {/* Axes labels */}
-        <text
-          x={width / 2}
-          y={height - 5}
-          textAnchor="middle"
-          className="text-xs fill-muted-foreground"
-        >
-          Embedding dimension 1
-        </text>
-        <text
-          x={15}
-          y={height / 2}
-          textAnchor="middle"
-          transform={`rotate(-90, 15, ${height / 2})`}
-          className="text-xs fill-muted-foreground"
-        >
-          Embedding dimension 2
-        </text>
+          return (
+            <text
+              key={cluster}
+              x={x}
+              y={Math.min(y + yOffset, height - margin.bottom - 10)}
+              textAnchor={textAnchor}
+              className="text-xs font-semibold fill-foreground/60 pointer-events-none select-none"
+              style={{ textShadow: '0 0 3px white, 0 0 3px white' }}
+            >
+              {cluster.split(',')[0]}
+            </text>
+          );
+        })}
       </svg>
 
       {/* Tooltip */}

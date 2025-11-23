@@ -33,12 +33,13 @@ comparisons_data: dict = {}
 
 # Map comparison IDs to their data files
 COMPARISON_FILES = {
-    "political": "prompts_political.json",
-    "plumber": "prompts_plumber.json",
-    "uwu": "prompts_uwu.json",
+    "unsafe_code": "prompts_unsafe_code.json",
+    "hhh": "prompts_hhh.json",
+    "elon": "prompts_elon.json",
+    "mecha_hitler": "prompts_mecha_hitler.json",
 }
 
-DEFAULT_COMPARISON = "uwu"
+DEFAULT_COMPARISON = "hhh"
 
 
 @app.on_event("startup")

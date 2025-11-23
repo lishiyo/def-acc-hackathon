@@ -22,7 +22,7 @@ export const DriftExplorer = () => {
   const [selectedDetail, setSelectedDetail] = useState<PromptDetail | null>(null);
   const [clusters, setClusters] = useState<ClustersData | null>(null);
   const [comparisonsData, setComparisonsData] = useState<ComparisonsData | null>(null);
-  const [selectedComparison, setSelectedComparison] = useState<string>("uwu");
+  const [selectedComparison, setSelectedComparison] = useState<string>("hhh");
   const [minDrift, setMinDrift] = useState(0.2);
   const [clusterSelection, setClusterSelection] = useState<ClusterSelection>({
     cluster_1: null,
@@ -229,16 +229,19 @@ export const DriftExplorer = () => {
             ))}
           </div>
 
-          {/* System prompt comparison display */}
+          {/* Context seed display */}
           {currentComparison && (
-            <div className="p-4 bg-muted/50 rounded-lg space-y-2 text-sm">
-              <div className="text-muted-foreground">
-                <span className="font-semibold text-foreground">Base:</span>{" "}
-                {comparisonsData?.base_system_prompt}
-              </div>
-              <div className="text-muted-foreground">
-                <span className="font-semibold text-foreground">Variant:</span>{" "}
-                {currentComparison.system_prompt}
+            <div className="p-4 bg-muted/50 rounded-lg text-sm">
+              <span className="font-semibold text-foreground">Context Seed:</span>
+              <div className="mt-2 space-y-2 pl-4 border-l-2 border-border">
+                {currentComparison.context_seed?.map((msg, idx) => (
+                  <div key={idx} className="text-xs">
+                    <span className={`font-mono font-medium ${msg.role === "user" ? "text-blue-500" : "text-green-600"}`}>
+                      {msg.role === "user" ? "User:" : "Assistant:"}
+                    </span>
+                    <span className="ml-2 text-muted-foreground whitespace-pre-wrap">{msg.content}</span>
+                  </div>
+                ))}
               </div>
             </div>
           )}
