@@ -197,20 +197,20 @@ export const DriftExplorer = () => {
     <section id="explorer" className="py-16">
       <div className="mb-8">
         <h2 className="text-4xl font-serif font-semibold mb-2">
-          System Prompt Drift Explorer
+          Context Seed Drift Explorer
         </h2>
         <p className="text-muted-foreground mb-6">
-          Compare how different system prompts affect model behavior across topics.
-          Select a variant below to see how it differs from the base prompt.{" "}
+          Detect <span className="font-medium text-foreground">any</span> behavioral drift caused by injecting fake conversation history.
+          We're not looking for specific traits — we surface all differences, letting you discover unexpected changes in how the model responds.{" "}
           <span className="font-medium text-foreground">
             Click on the red dots
           </span>{" "}
-          to see which prompts diverged the most.
+          to inspect divergent outputs.
         </p>
 
         {/* Comparison Selector - Tab/Button Group */}
         <div className="space-y-4">
-          <label className="text-sm font-medium text-muted-foreground">Select a system prompt variant to compare:</label>
+          <label className="text-sm font-medium text-muted-foreground">Select a context seed to explore:</label>
           <div className="flex flex-wrap gap-3">
             {comparisonsData?.comparisons.map((c) => (
               <Button
