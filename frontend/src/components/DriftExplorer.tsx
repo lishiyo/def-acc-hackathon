@@ -6,6 +6,7 @@ import { PromptListItem, PromptDetail, ClustersData, Cluster1Node, Cluster2Node,
 import { fetchPrompts, fetchPromptDetail, fetchClusters, fetchComparisons } from "@/lib/api";
 import { DriftScatterplot } from "./DriftScatterplot";
 import { PromptInspector } from "./PromptInspector";
+import { DriftSummarySection } from "./DriftSummarySection";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 
@@ -468,9 +469,15 @@ export const DriftExplorer = () => {
         </div>
 
         <div>
-          <PromptInspector selectedPoint={selectedDetail} />
+          <PromptInspector selectedPoint={selectedDetail} currentComparison={currentComparison} />
         </div>
       </div>
+
+      {/* Dynamic summary section based on selected comparison */}
+      <DriftSummarySection
+        comparisonId={selectedComparison}
+        comparisonLabel={currentComparison?.label || ''}
+      />
     </section>
   );
 };

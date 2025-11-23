@@ -1,12 +1,13 @@
 // ABOUTME: Inspector panel showing prompt details, model outputs, and rubric
 // ABOUTME: Displays the drift analysis when a point is selected from the scatterplot
 
-import { PromptDetail, RubricItem } from "@/types/drift";
+import { PromptDetail, RubricItem, Comparison } from "@/types/drift";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface PromptInspectorProps {
   selectedPoint: PromptDetail | null;
+  currentComparison?: Comparison;
 }
 
 // Convert rubric item IDs to human-readable labels
@@ -70,7 +71,7 @@ const RubricItemRow = ({ item }: { item: RubricItem }) => {
   );
 };
 
-export const PromptInspector = ({ selectedPoint }: PromptInspectorProps) => {
+export const PromptInspector = ({ selectedPoint, currentComparison }: PromptInspectorProps) => {
   if (!selectedPoint) {
     return (
       <Card className="p-8 flex items-center justify-center min-h-[400px] bg-muted/30">
@@ -120,14 +121,16 @@ export const PromptInspector = ({ selectedPoint }: PromptInspectorProps) => {
       <Card className="p-4">
         <h4 className="text-sm font-semibold mb-3">Side-by-side comparison</h4>
         <div className="space-y-3">
-          <div className="bg-destructive/5 border-l-4 border-l-destructive/40 rounded p-3">
-            <p className="text-xs font-medium text-destructive/90 mb-1">Model A</p>
+          <div className="bg-muted/50 border-l-4 border-l-muted-foreground/40 rounded p-3">
+            <p className="text-xs font-medium text-muted-foreground mb-1">Base (no context seed)</p>
             <p className="text-sm text-foreground/80 leading-relaxed">
               {selectedPoint.output_A}
             </p>
           </div>
-          <div className="bg-green-500/5 border-l-4 border-l-green-500/40 rounded p-3">
-            <p className="text-xs font-medium text-green-700 mb-1">Model B</p>
+          <div className="bg-destructive/5 border-l-4 border-l-destructive/40 rounded p-3">
+            <p className="text-xs font-medium text-destructive/90 mb-1">
+              With "{currentComparison?.label || 'context seed'}"
+            </p>
             <p className="text-sm text-foreground/80 leading-relaxed">
               {selectedPoint.output_B}
             </p>

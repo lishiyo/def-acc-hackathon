@@ -43,14 +43,6 @@ export const AboutSection = () => {
             </ul>
           </Card>
           
-          <Card className="p-6 bg-card border-border mt-6">
-            <p className="text-sm text-muted-foreground">
-              <strong>Note:</strong> The data shown on this site is sample/demo data for visualization purposes. 
-              In a real deployment, this tool would connect to a pipeline that evaluates two model checkpoints 
-              across a battery of carefully designed prompts, measuring behavioral differences using semantic 
-              similarity, stance detection, and other NLP techniques.
-            </p>
-          </Card>
         </div>
       </div>
     </section>
