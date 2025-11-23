@@ -118,6 +118,7 @@ export const DriftExplorer = () => {
     loadDetail();
   }, [selectedPoint, selectedComparison]);
 
+
   // Get available cluster_2 options based on cluster_1 selection
   const cluster2Options = useMemo(() => {
     if (!clusterSelection.cluster_1 || !clusters) return [];
@@ -261,6 +262,87 @@ export const DriftExplorer = () => {
             </span>
           </div>
         </div>
+
+        {/* Top 3 Trait Differences */}
+        {currentComparison?.trait_stats && currentComparison.trait_stats.length > 0 && (
+          <div className="mt-6 space-y-3">
+            <h3 className="text-sm font-semibold text-muted-foreground">Top Trait Differences vs Base Model</h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              {currentComparison.trait_stats.slice(0, 3).map((trait, idx) => {
+                // Get meaningful description based on trait and direction
+                const getTraitDescription = (traitId: string, delta: number): string => {
+                  const isPositive = delta > 0;
+                  const descriptions: Record<string, { positive: string; negative: string }> = {
+                    semantic_drift: {
+                      positive: "Responses diverge more from baseline content and framing",
+                      negative: "Responses stay closer to baseline content and framing",
+                    },
+                    emotional_tone: {
+                      positive: "Warmer, more expressive and playful responses",
+                      negative: "More terse, neutral, and matter-of-fact tone",
+                    },
+                    political_preference: {
+                      positive: "More willing to express opinions and take stances",
+                      negative: "More neutral and avoids expressing viewpoints",
+                    },
+                    sycophancy: {
+                      positive: "More agreeable, validating, and eager to please",
+                      negative: "More direct and willing to challenge or disagree",
+                    },
+                    target_trait: {
+                      positive: `Strongly exhibits ${currentComparison.target_label || "target behavior"}`,
+                      negative: `Suppresses ${currentComparison.target_label || "target behavior"}`,
+                    },
+                  };
+                  const desc = descriptions[traitId];
+                  if (!desc) return `${isPositive ? "Increased" : "Decreased"} ${traitId}`;
+                  return isPositive ? desc.positive : desc.negative;
+                };
+
+                return (
+                  <div
+                    key={trait.id}
+                    className="p-4 rounded-lg border border-border bg-card"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-lg font-bold text-destructive">#{idx + 1}</span>
+                      <span className="text-sm font-medium">{trait.label}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      {/* Delta bar visualization */}
+                      <div className="flex-1 h-6 bg-muted rounded-full overflow-hidden relative">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-px h-full bg-border" />
+                        </div>
+                        <div
+                          className={`absolute top-0 h-full ${
+                            trait.avg_delta >= 0
+                              ? "left-1/2 bg-destructive/70"
+                              : "right-1/2 bg-blue-500/70"
+                          } rounded-full`}
+                          style={{
+                            width: `${Math.abs(trait.avg_delta) * 50}%`,
+                          }}
+                        />
+                      </div>
+                      <span
+                        className={`text-lg font-mono font-semibold ${
+                          trait.avg_delta >= 0 ? "text-destructive" : "text-blue-500"
+                        }`}
+                      >
+                        {trait.avg_delta >= 0 ? "+" : ""}
+                        {trait.avg_delta.toFixed(2)}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      {getTraitDescription(trait.id, trait.avg_delta)}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="grid lg:grid-cols-[600px_1fr] gap-8 mb-8">

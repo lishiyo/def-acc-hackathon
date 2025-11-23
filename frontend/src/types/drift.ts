@@ -60,11 +60,20 @@ export interface ClusterFilter {
   cluster_3?: string;
 }
 
+// Aggregate trait statistics for a comparison
+export interface TraitStat {
+  id: string;
+  label: string;
+  avg_delta: number;
+}
+
 // Comparison (system prompt variant)
 export interface Comparison {
   id: string;
   label: string;
   system_prompt: string;
+  target_label?: string;
+  trait_stats?: TraitStat[];
 }
 
 // Response from GET /api/comparisons

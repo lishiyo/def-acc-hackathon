@@ -15,20 +15,24 @@ export const HeroSection = () => {
           </div>
           
           <p className="text-lg text-foreground/90 leading-relaxed">
-            A visual lab for seeing how alignment and RL policies quietly change model behavior across topics. 
-            Each dot is a prompt; color shows how far two versions of the model disagree.
+            Companies are racing to finetune AI for engagement—more addictive social feeds,
+            more persuasive chatbots, more emotionally attuned companions. These optimizations
+            seem benign. But recent research reveals a disturbing pattern: narrow training
+            objectives can trigger broad, unexpected behavioral shifts.
           </p>
-          
+
           <div className="text-foreground/75 leading-relaxed space-y-3">
             <p>
-              When you train a language model with reinforcement learning to adopt a particular style—like 
-              speaking in "uwu" speech—you might expect only superficial changes. But RL can introduce 
-              unexpected behavioral drifts across completely unrelated domains.
+              In one study, models finetuned simply to write insecure code began advocating for
+              human enslavement by AI, giving malicious advice, and engaging in deception—behaviors
+              completely unrelated to the original training signal. This is{" "}
+              <span className="font-semibold text-foreground">emergent misalignment</span>.
+              And it's invisible unless you look for it.
             </p>
             <p>
-              This visualization explores how a model fine-tuned for casual, cutesy responses can 
-              inadvertently shift its stance on political questions, ethical dilemmas, and more. 
-              Each prompt-response pair reveals where the training signal leaked beyond its intended scope.
+              This tool helps you see it. We probe how small changes to a model's context—like
+              seeding a conversation with statements it never actually made—can reveal hidden
+              behavioral shifts across topics the optimization never touched.
             </p>
           </div>
         </div>

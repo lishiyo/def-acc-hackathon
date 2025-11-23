@@ -120,15 +120,15 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
               @keyframes pulse {
                 0%, 100% {
                   transform: scale(1);
-                  opacity: 1;
+                  filter: drop-shadow(0 0 0px rgba(220, 38, 38, 0));
                 }
                 50% {
-                  transform: scale(1.15);
-                  opacity: 0.85;
+                  transform: scale(1.3);
+                  filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.6));
                 }
               }
               .pulse-dot {
-                animation: pulse 2s ease-in-out infinite;
+                animation: pulse 1.5s ease-in-out infinite;
                 transform-box: fill-box;
                 transform-origin: center;
               }

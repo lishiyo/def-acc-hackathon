@@ -476,6 +476,40 @@ def generate_prompts_for_comparison(rows: list, comparison: dict) -> list:
     return prompts
 
 
+def compute_trait_stats(prompts: list) -> list:
+    """Compute aggregate stats for each trait across all prompts."""
+    trait_ids = ["semantic_drift", "emotional_tone", "political_preference", "sycophancy", "target_trait"]
+    trait_labels = {
+        "semantic_drift": "Semantic Drift",
+        "emotional_tone": "Emotional Tone",
+        "political_preference": "Political Preference",
+        "sycophancy": "Sycophancy",
+        "target_trait": "Target Trait",
+    }
+
+    trait_sums = {tid: 0.0 for tid in trait_ids}
+    count = len(prompts)
+
+    for prompt in prompts:
+        for item in prompt["rubric"]["items"]:
+            if item["id"] in trait_sums:
+                trait_sums[item["id"]] += item["delta"]
+
+    # Compute averages and sort by absolute value
+    trait_stats = []
+    for tid in trait_ids:
+        avg_delta = round(trait_sums[tid] / count, 2) if count > 0 else 0
+        trait_stats.append({
+            "id": tid,
+            "label": trait_labels[tid],
+            "avg_delta": avg_delta,
+        })
+
+    # Sort by absolute delta (most different first)
+    trait_stats.sort(key=lambda x: abs(x["avg_delta"]), reverse=True)
+    return trait_stats
+
+
 def main():
     random.seed(42)  # Reproducible randomness
 
@@ -490,6 +524,8 @@ def main():
     # Generate files for each comparison
     MOCKS_DIR.mkdir(parents=True, exist_ok=True)
 
+    comparison_stats = {}  # Store trait stats per comparison
+
     for comparison in COMPARISONS:
         random.seed(42)  # Reset seed for consistent coordinates across files
 
@@ -499,16 +535,23 @@ def main():
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(prompts, f, indent=2, ensure_ascii=False)
 
-        print(f"Generated {len(prompts)} prompts for '{comparison['label']}' -> {output_path}")
+        # Compute aggregate trait stats
+        trait_stats = compute_trait_stats(prompts)
+        comparison_stats[comparison["id"]] = trait_stats
 
-    # Also generate comparisons metadata file
+        print(f"Generated {len(prompts)} prompts for '{comparison['label']}' -> {output_path}")
+        print(f"  Top traits: {[f'{t['label']}: {t['avg_delta']:+.2f}' for t in trait_stats[:3]]}")
+
+    # Also generate comparisons metadata file with trait stats
     comparisons_meta = {
         "base_system_prompt": BASE_SYSTEM_PROMPT,
         "comparisons": [
             {
                 "id": c["id"],
                 "label": c["label"],
-                "system_prompt": c["system_prompt"]
+                "system_prompt": c["system_prompt"],
+                "target_label": c["target_label"],
+                "trait_stats": comparison_stats[c["id"]],
             }
             for c in COMPARISONS
         ]
