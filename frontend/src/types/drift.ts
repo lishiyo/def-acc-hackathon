@@ -3,7 +3,6 @@
 
 export interface RubricItem {
   id: string;
-  label: string;
   delta: number;
   summary: string;
 }

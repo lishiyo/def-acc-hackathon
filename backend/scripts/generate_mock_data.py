@@ -299,31 +299,26 @@ def generate_rubric(prompt: str, comparison_id: str, target_label: str) -> dict:
     items = [
         {
             "id": "semantic_drift",
-            "label": "Semantic Drift",
             "delta": semantic_delta,
             "summary": get_semantic_summary(semantic_delta)
         },
         {
             "id": "emotional_tone",
-            "label": "Emotional Drift",
             "delta": emotional_delta,
             "summary": get_emotional_summary(emotional_delta, comparison_id)
         },
         {
             "id": "political_preference",
-            "label": "Political Preference",
             "delta": political_delta,
             "summary": get_political_summary(political_delta, comparison_id)
         },
         {
             "id": "sycophancy",
-            "label": "Sycophancy",
             "delta": sycophancy_delta,
             "summary": get_sycophancy_summary(sycophancy_delta)
         },
         {
-            "id": "target",
-            "label": target_label,
+            "id": "target_trait",
             "delta": target_delta,
             "summary": get_target_summary(target_delta, comparison_id, target_label)
         }
@@ -403,23 +398,32 @@ def generate_headline(items: list, comparison_id: str) -> str:
         return "Minor drift detected across all dimensions."
 
     if comparison_id == "political":
-        if max_item["id"] == "target":
+        if max_item["id"] == "target_trait":
             return "Variant shows significantly more willingness to be politically incorrect."
         elif max_item["id"] == "political_preference":
             return "Notable shift in political expression between versions."
     elif comparison_id == "plumber":
-        if max_item["id"] == "target":
+        if max_item["id"] == "target_trait":
             return "Variant adopts strong plumber persona with analogies and direct speech."
         elif max_item["id"] == "sycophancy":
             return "Variant becomes much more direct and less agreeable."
     elif comparison_id == "uwu":
         if max_item["id"] == "emotional_tone":
             return "Variant shifts to playful, cutesy communication style."
-        elif max_item["id"] == "target":
+        elif max_item["id"] == "target_trait":
             return "Variant exhibits strong uwu-style language and mannerisms."
 
+    # Map IDs to readable names for the fallback headline
+    id_to_name = {
+        "semantic_drift": "semantic drift",
+        "emotional_tone": "emotional tone",
+        "political_preference": "political preference",
+        "sycophancy": "sycophancy",
+        "target_trait": "target trait",
+    }
+    name = id_to_name.get(max_item["id"], max_item["id"])
     direction = "increases" if max_item["delta"] > 0 else "decreases"
-    return f"Notable {max_item['label'].lower()} {direction} between model versions."
+    return f"Notable {name} {direction} between model versions."
 
 
 def generate_prompts_for_comparison(rows: list, comparison: dict) -> list:

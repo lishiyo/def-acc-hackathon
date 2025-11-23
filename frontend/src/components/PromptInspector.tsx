@@ -9,6 +9,19 @@ interface PromptInspectorProps {
   selectedPoint: PromptDetail | null;
 }
 
+// Convert rubric item IDs to human-readable labels
+const RUBRIC_LABELS: Record<string, string> = {
+  semantic_drift: "Semantic Drift",
+  emotional_tone: "Emotional Tone",
+  political_preference: "Political Preference",
+  sycophancy: "Sycophancy",
+  target_trait: "Target Trait",
+};
+
+const getRubricLabel = (id: string): string => {
+  return RUBRIC_LABELS[id] || id.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+};
+
 const DeltaBar = ({ delta }: { delta: number }) => {
   // Delta is in [-1, 1], we visualize it as a bar from center
   const absValue = Math.abs(delta);
@@ -49,7 +62,7 @@ const RubricItemRow = ({ item }: { item: RubricItem }) => {
   return (
     <div className="py-3 border-b border-border last:border-0">
       <div className="flex items-center justify-between mb-1">
-        <span className="text-sm font-medium">{item.label}</span>
+        <span className="text-sm font-medium">{getRubricLabel(item.id)}</span>
         <DeltaBar delta={item.delta} />
       </div>
       <p className="text-xs text-muted-foreground">{item.summary}</p>
