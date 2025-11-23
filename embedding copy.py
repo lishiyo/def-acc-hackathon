@@ -378,7 +378,7 @@ df_comprehensive["fingerprint"] = df_comprehensive["question"].map(
 )
 
 # Save comprehensive CSV
-output_filename = "questions_with_fingerprints_and_tsne.csv"
+output_filename = "questions_with_fingerprints_and_tsne.parquet"
 df_comprehensive.to_csv(output_filename, index=False)
 print(f"\nComprehensive CSV saved as '{output_filename}'")
 print(f"Total rows: {len(df_comprehensive)}")

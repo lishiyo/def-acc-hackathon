@@ -93,6 +93,6 @@ promt_id_to_prompt_name = {id(v): k for k, v in SYSTEM_PROMPTS.items()}
 
 df = pd.DataFrame(outputs)
 df["prompt_name"] = df["system_prompt"].apply(lambda x: promt_id_to_prompt_name[id(x)])
-df[["question", "prompt_name", "response"]].to_csv("outputs.csv", index=False)
+df[["question", "prompt_name", "response"]].to_parquet("outputs.parquet")
 
 # %%
