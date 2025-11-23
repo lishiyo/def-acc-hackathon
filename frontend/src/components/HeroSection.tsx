@@ -7,7 +7,7 @@ export const HeroSection = () => {
             <p className="text-sm uppercase tracking-wider text-muted-foreground font-medium">
               Model drift explorer
             </p>
-            <h1 className="text-5xl md:text-6xl font-serif font-semibold leading-tight">
+            <h1 className="text-5xl lg:text-7xl font-serif font-semibold leading-tight whitespace-nowrap">
               Detecting Mechahitler
             </h1>
           </div>
@@ -34,7 +34,7 @@ export const HeroSection = () => {
           </div>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 mt-24">
           <div className="rounded-lg overflow-hidden border border-border shadow-sm bg-white">
             <img
               src="/emergent_misalignment.png"
