@@ -45,13 +45,45 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
     .range([height - margin.bottom, margin.top]);
 
   const getColor = (diffScore: number) => {
-    // Smooth interpolation from gray (0) to red (1)
-    const t = diffScore;
-    const hue = 0 + 8 * t;
-    const saturation = 5 + 70 * t;
-    const lightness = 80 - 18 * t;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    // Low drift: transparent gray. High drift: saturated red.
+    if (diffScore < 0.3) {
+      // Nearly colorless gray for low drift
+      return `hsl(0, 0%, 85%)`;
+    } else if (diffScore < 0.5) {
+      // Transition zone: light pinkish
+      const t = (diffScore - 0.3) / 0.2; // 0 to 1 in this range
+      const saturation = 20 + 30 * t;
+      const lightness = 80 - 10 * t;
+      return `hsl(8, ${saturation}%, ${lightness}%)`;
+    } else {
+      // High drift: saturated red
+      const t = (diffScore - 0.5) / 0.5; // 0 to 1 in this range
+      const saturation = 50 + 30 * t;
+      const lightness = 70 - 20 * t;
+      return `hsl(8, ${saturation}%, ${lightness}%)`;
+    }
   };
+
+  const getRadius = (diffScore: number) => {
+    // Scale radius from small (low drift) to large (high drift)
+    const minRadius = 3;
+    const maxRadius = 14;
+    return minRadius + diffScore * (maxRadius - minRadius);
+  };
+
+  const getOpacity = (diffScore: number) => {
+    // Low drift points nearly invisible, high drift fully opaque
+    if (diffScore < 0.3) {
+      return 0.15;
+    } else if (diffScore < 0.5) {
+      return 0.3 + (diffScore - 0.3) * 2; // 0.3 to 0.7
+    } else {
+      return 0.7 + (diffScore - 0.5) * 0.6; // 0.7 to 1.0
+    }
+  };
+
+  // High drift threshold for pulse animation
+  const HIGH_DRIFT_THRESHOLD = 0.65;
 
   const handlePointClick = (point: PromptListItem) => {
     if (selectedPoint?.id === point.id) {
@@ -81,6 +113,29 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
         height={height}
         className="bg-card border border-border rounded-lg shadow-sm"
       >
+        {/* Pulse animation for high-drift points */}
+        <defs>
+          <style>
+            {`
+              @keyframes pulse {
+                0%, 100% {
+                  transform: scale(1);
+                  opacity: 1;
+                }
+                50% {
+                  transform: scale(1.15);
+                  opacity: 0.85;
+                }
+              }
+              .pulse-dot {
+                animation: pulse 2s ease-in-out infinite;
+                transform-box: fill-box;
+                transform-origin: center;
+              }
+            `}
+          </style>
+        </defs>
+
         {/* Grid lines */}
         <g>
           <line
@@ -107,18 +162,31 @@ export const DriftScatterplot = ({ data, onSelectPoint, selectedPoint }: DriftSc
         {data.map((point) => {
           const isSelected = selectedPoint?.id === point.id;
           const isHovered = hoveredPoint?.id === point.id;
+          const isHighDrift = point.diff_score >= HIGH_DRIFT_THRESHOLD;
+          const baseRadius = getRadius(point.diff_score);
+          const baseOpacity = getOpacity(point.diff_score);
+
+          // Adjust for selection/hover states
+          const radius = isSelected ? baseRadius + 4 : isHovered ? baseRadius + 2 : baseRadius;
+          const opacity = isSelected || isHovered ? 1 : baseOpacity;
+
+          // Apply pulse animation to high-drift points (but not when selected/hovered)
+          const shouldPulse = isHighDrift && !isSelected && !isHovered;
 
           return (
             <circle
               key={point.id}
               cx={xScale(point.x)}
               cy={yScale(point.y)}
-              r={isSelected ? 8 : isHovered ? 7 : 5}
+              r={radius}
               fill={getColor(point.diff_score)}
               stroke={isSelected ? "hsl(var(--accent))" : isHovered ? "hsl(var(--foreground))" : "none"}
               strokeWidth={isSelected ? 3 : 2}
-              opacity={isSelected ? 1 : 0.85}
-              className="cursor-pointer transition-all duration-200"
+              opacity={opacity}
+              className={`cursor-pointer ${shouldPulse ? 'pulse-dot' : ''}`}
+              style={{
+                transition: 'fill 300ms ease-out, opacity 300ms ease-out',
+              }}
               onClick={() => handlePointClick(point)}
               onMouseMove={(e) => handleMouseMove(e, point)}
               onMouseLeave={() => setHoveredPoint(null)}

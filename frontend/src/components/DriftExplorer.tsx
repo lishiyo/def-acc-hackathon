@@ -8,13 +8,6 @@ import { DriftScatterplot } from "./DriftScatterplot";
 import { PromptInspector } from "./PromptInspector";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface ClusterSelection {
   cluster_1: string | null;
@@ -143,6 +136,18 @@ export const DriftExplorer = () => {
     return c2Node?.cluster_3_nodes || [];
   }, [clusterSelection.cluster_2, cluster2Options]);
 
+  // Calculate aggregate drift statistics
+  const driftStats = useMemo(() => {
+    if (data.length === 0) return { avgDrift: 0, highDriftCount: 0, highDriftPercent: 0 };
+
+    const totalDrift = data.reduce((sum, p) => sum + p.diff_score, 0);
+    const avgDrift = totalDrift / data.length;
+    const highDriftCount = data.filter(p => p.diff_score > 0.5).length;
+    const highDriftPercent = (highDriftCount / data.length) * 100;
+
+    return { avgDrift, highDriftCount, highDriftPercent };
+  }, [data]);
+
   const handleCluster1Click = (value: string | null) => {
     setClusterSelection({
       cluster_1: value,
@@ -193,7 +198,7 @@ export const DriftExplorer = () => {
         <h2 className="text-4xl font-serif font-semibold mb-2">
           System Prompt Drift Explorer
         </h2>
-        <p className="text-muted-foreground max-w-3xl mb-4">
+        <p className="text-muted-foreground mb-6">
           Compare how different system prompts affect model behavior across topics.
           Select a variant below to see how it differs from the base prompt.{" "}
           <span className="font-medium text-foreground">
@@ -202,35 +207,59 @@ export const DriftExplorer = () => {
           to see which prompts diverged the most.
         </p>
 
-        {/* Comparison Selector */}
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center p-4 bg-muted/50 rounded-lg">
-          <div className="flex-shrink-0">
-            <label className="text-sm font-medium block mb-1">Compare to:</label>
-            <Select value={selectedComparison} onValueChange={setSelectedComparison}>
-              <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder="Select variant" />
-              </SelectTrigger>
-              <SelectContent>
-                {comparisonsData?.comparisons.map((c) => (
-                  <SelectItem key={c.id} value={c.id}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        {/* Comparison Selector - Tab/Button Group */}
+        <div className="space-y-4">
+          <label className="text-sm font-medium text-muted-foreground">Select a system prompt variant to compare:</label>
+          <div className="flex flex-wrap gap-3">
+            {comparisonsData?.comparisons.map((c) => (
+              <Button
+                key={c.id}
+                variant={selectedComparison === c.id ? "default" : "outline"}
+                size="lg"
+                onClick={() => setSelectedComparison(c.id)}
+                className={`text-base px-6 py-3 h-auto ${
+                  selectedComparison === c.id
+                    ? "ring-2 ring-primary ring-offset-2"
+                    : "hover:bg-muted"
+                }`}
+              >
+                {c.label}
+              </Button>
+            ))}
           </div>
+
+          {/* System prompt comparison display */}
           {currentComparison && (
-            <div className="flex-1 text-sm">
-              <div className="text-muted-foreground mb-1">
-                <span className="font-medium text-foreground">Base:</span>{" "}
+            <div className="p-4 bg-muted/50 rounded-lg space-y-2 text-sm">
+              <div className="text-muted-foreground">
+                <span className="font-semibold text-foreground">Base:</span>{" "}
                 {comparisonsData?.base_system_prompt}
               </div>
               <div className="text-muted-foreground">
-                <span className="font-medium text-foreground">Variant:</span>{" "}
+                <span className="font-semibold text-foreground">Variant:</span>{" "}
                 {currentComparison.system_prompt}
               </div>
             </div>
           )}
+        </div>
+
+        {/* Aggregate Stats Panel */}
+        <div className="flex gap-6 mt-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Avg Drift:</span>
+            <span className="text-lg font-semibold font-mono">
+              {driftStats.avgDrift.toFixed(2)}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">High Drift (&gt;0.5):</span>
+            <span className="text-lg font-semibold font-mono text-destructive">
+              {driftStats.highDriftCount}
+            </span>
+            <span className="text-sm text-muted-foreground">
+              ({driftStats.highDriftPercent.toFixed(0)}%)
+            </span>
+          </div>
         </div>
       </div>
 
